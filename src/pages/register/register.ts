@@ -15,6 +15,7 @@ export class RegisterPage {
   constructor(private nav: NavController, private auth: ServiceProvider, private alertCtrl: AlertController) { }
 
   public register() {
+    this.registerCredentials.location = "Not available";//not needed...
     this.auth.register(this.registerCredentials).subscribe(success => {
         if (success) {
           this.createSuccess = true;

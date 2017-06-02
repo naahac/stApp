@@ -59,6 +59,7 @@ export class SearchPage {
       console.log(resp.coords.longitude);
       this.latitude = resp.coords.latitude;
       this.longitude = resp.coords.longitude;
+      this.search();
     }).catch((error) => {
       console.log('Error getting location', error);
     });

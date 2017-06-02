@@ -8,6 +8,7 @@ import {Book} from "../../models/Book";
 import {Genre} from "../../models/Genre";
 import {ChangeListingRequest} from "../../models/ChangeListingRequest";
 import {SearchParameters} from "../../models/SearchParameters";
+import {Chat} from "../../models/Chat";
 
 @Injectable()
 export class ServiceProvider {
@@ -23,6 +24,40 @@ export class ServiceProvider {
 
   public getBaseUrl(): string {
     return this.baseUrl;
+  }
+
+  public createChatroom(token : string, userId : number){
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({headers: headers, params: {tokenId: token, userId: userId}});
+    return this.http
+      .get(this.baseUrl + "/chats/id/", options)
+      .map(res => res.json());
+  }
+
+  public getChatById(token : string, chatId : number){
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({headers: headers, params: {tokenId: token, chatId: chatId}});
+    return this.http
+      .get(this.baseUrl + "/chats/", options)
+      .map(res => res.json());
+  }
+
+  public getChatroomsByToken(token : string) : Observable<[Chat]>{
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({headers: headers});
+    return this.http
+      .get(this.baseUrl + "/chats/byuserid/?tokenId=" + token, options)
+      .map(res => res.json())
+      .map(data => {
+        var result = [];
+        if (!data.success)
+          return result;
+        for (let obj of data.data) {
+          let newChat = new Chat(obj['chatId'],obj['user1'], obj['user2'], obj['username1'], obj['username2']);
+          result.push(newChat);
+        }
+        return result;
+      });
   }
 
   public login(credentials) {
@@ -91,7 +126,8 @@ export class ServiceProvider {
             obj['location'],
             obj['userId'],
             distance,
-            obj['status']);
+            obj['status'],
+            obj['book']['genre']['genre']);
           result.push(newListing);
         }
         return result;
@@ -123,7 +159,8 @@ export class ServiceProvider {
             obj['location'],
             obj['userId'],
             undefined,
-            obj['status']);
+            obj['status'],
+            obj['book']['genre']['genre']);
           result.push(newListing);
         }
         return result;

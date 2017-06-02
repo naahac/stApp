@@ -18,10 +18,11 @@ export class ChangeListingRequest {
   userId : number;
   distance : string;
   status : number;
+  genreString : string;
 
   constructor(tokenId : string, listingId : number, listingTitle : string, bookTitle : string, description : string,
               bookId : number, picture : string, latitude : number, longitude : number, genreId : number, author : string,
-              location : string, userId : number, distance : string, status : number) {
+              location : string, userId : number, distance : string, status : number, genreString : string) {
     this.tokenId = tokenId;
     if(listingId !== undefined)
       this.listingId = listingId;
@@ -39,5 +40,6 @@ export class ChangeListingRequest {
     this.userId = userId;
     this.distance = distance;
     this.status = status;
+    this.genreString = genreString;
   }
 }

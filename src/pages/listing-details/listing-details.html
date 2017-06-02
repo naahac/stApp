@@ -47,11 +47,51 @@
     </ion-col>
     <ion-col class="details-col">
       <ion-item>
-        {{ genre }}
+        {{ listing.genreString }}
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col class="details-col">
+      <ion-item>
+        Book title:
+      </ion-item>
+    </ion-col>
+    <ion-col class="details-col">
+      <ion-item>
+        {{ listing.bookTitle }}
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col class="details-col">
+      <ion-item>
+        Author:
+      </ion-item>
+    </ion-col>
+    <ion-col class="details-col">
+      <ion-item>
+        {{ listing.author }}
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col class="details-col">
+      <ion-item>
+        Location:
+      </ion-item>
+    </ion-col>
+    <ion-col class="details-col">
+      <ion-item>
+        {{ listing.location }}
       </ion-item>
     </ion-col>
   </ion-row>
   <button [hidden]="listing.userId === currentUserId" ion-button type="button" (click)="chat()">Contact</button>
+  <button  ion-button type="button" (click)="navigate()">Navigate</button>
+
   <ion-fab [hidden]="isEditHidden || listing.status === 0" class="edit-listing-fab" right bottom>
     <button ion-fab (click)="editListing()">edit</button>
   </ion-fab>

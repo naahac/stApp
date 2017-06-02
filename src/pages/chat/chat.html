@@ -7,12 +7,19 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>chat</ion-title>
+    <ion-title>chat.userName1</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+  <ion-list>
+    <ion-item *ngFor="let item of messages">
+      {{item.userId === receiverUserId ? chat.userName1 : chat.userName2}}: {{ item.message }}
+    </ion-item>
+  </ion-list>
+  <ion-input type="text" placeholder="Message..." name="message" [(ngModel)]="message"
+             ></ion-input>
+  <button ion-button type="button" (click)="sendMessage()">Send message</button>
 </ion-content>

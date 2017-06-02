@@ -17,6 +17,7 @@ export class MainPage {
   myBooksRoot = 'MyBooksPage'
   searchRoot = 'SearchPage'
   profileRoot = 'ProfilePage'
+  chatRoot = 'ChatListPage'
 
 
   constructor(public navCtrl: NavController) {}

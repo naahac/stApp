@@ -22,6 +22,8 @@ import { StorageProvider } from '../providers/storage/storage';
 import {MapService} from "../providers/service/map-service";
 import {AutocompletePage} from "../pages/listing-add-new/autocomplete";
 import {ChatPage} from "../pages/chat/chat";
+import {ChatListPage} from "../pages/chat-list/chat-list";
+import {LaunchNavigator} from "@ionic-native/launch-navigator";
 
 @NgModule({
   declarations: [
@@ -61,7 +63,8 @@ import {ChatPage} from "../pages/chat/chat";
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ServiceProvider,
     StorageProvider,
-    MapService
+    MapService,
+    LaunchNavigator
   ]
 })
 export class AppModule {}
