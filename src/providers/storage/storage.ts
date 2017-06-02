@@ -23,6 +23,14 @@ export class StorageProvider {
     return this.storage.set('authToken', token);
   }
 
+  public storeUserId(userId){
+    return this.storage.set('userId', userId);
+  }
+
+  public getUserId(){
+    return this.storage.get('userId');
+  }
+
   public storeCredentials(credentials){
     return this.storage.set('credentials', credentials);
   }

@@ -7,7 +7,15 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>My Books</ion-title>
+    <ion-row>
+      <ion-col>
+        <ion-title>My Books</ion-title>
+      </ion-col>
+      <ion-col col-auto="">
+        <button ion-button type="button" (click)="getListings()">Refresh</button>
+      </ion-col>
+    </ion-row>
+
   </ion-navbar>
 
 </ion-header>
@@ -17,9 +25,13 @@
   <ion-list>
     <button ion-item *ngFor="let obj of listings" (click)="openListingDetails(obj)">
       <ion-avatar item-left>
+        <img [src]="imgBaseUrl + obj.listingId">
       </ion-avatar>
-      <h2>{{ obj.title }}</h2>
+      <h2>{{ obj.listingTitle }}</h2>
       <p text-capitalize>{{ obj.description }}</p>
     </button>
   </ion-list>
+  <ion-fab class="add-listing-fab" right bottom>
+    <button ion-fab (click)="addNewListing()">+</button>
+  </ion-fab>
 </ion-content>

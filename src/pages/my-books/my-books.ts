@@ -1,9 +1,11 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {App, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {StorageProvider} from '../../providers/storage/storage';
 import {ServiceProvider} from '../../providers/service/service';
 import {Listing} from '../../models/Listing';
 import {ListingDetailsPage} from '../../pages/listing-details/listing-details';
+import {ListingAddNewPage} from "../listing-add-new/listing-add-new";
+import {ChangeListingRequest} from "../../models/ChangeListingRequest";
 
 
 /**
@@ -18,8 +20,10 @@ import {ListingDetailsPage} from '../../pages/listing-details/listing-details';
   templateUrl: 'my-books.html',
 })
 export class MyBooksPage {
-  listings : [Listing];
-  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: StorageProvider, public service: ServiceProvider) {
+  listings : [ChangeListingRequest];
+  imgBaseUrl : string;
+  constructor(public navCtrl: NavController, private app: App, public navParams: NavParams, public storage: StorageProvider, public service: ServiceProvider) {
+    this.imgBaseUrl = service.getBaseUrl() + "/pictures/";
   }
 
   ionViewDidLoad() {
@@ -40,9 +44,13 @@ export class MyBooksPage {
     });
   }
 
-  public openListingDetails(listing : Listing){
-    console.log("Listing clicked" + listing.title);
-    this.navCtrl.push(ListingDetailsPage,listing);
+  public openListingDetails(listing : ChangeListingRequest){
+    console.log("Listing clicked" + listing.listingTitle);
+    this.app.getRootNav().push(ListingDetailsPage,{listing:listing});
+  }
+
+  public addNewListing(){
+    this.app.getRootNav().push(ListingAddNewPage,{});
   }
 
 }

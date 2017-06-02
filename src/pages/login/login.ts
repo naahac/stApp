@@ -32,8 +32,14 @@ export class LoginPage {
   public login() {
     this.showLoading()
     this.auth.login(this.registerCredentials).subscribe(response => {
-        let authToken = response.text().replace(/"/g, '');
-        this.storageProvider.storeToken(authToken).then(() => this.storeCredentials());
+      let authToken = response.data.tokenId;
+      let userId = response.data.personId;
+        // let authToken = response.text().replace(/"/g, '');
+        this.storageProvider.storeToken(authToken).then((success) => {
+          this.storageProvider.storeUserId(userId).then((success2) => {
+            this.storeCredentials()
+          });
+        });
       },
       error => {
         this.showError(error);

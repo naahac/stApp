@@ -7,12 +7,52 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>listing-details</ion-title>
+    <ion-title>{{listing.listingTitle}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <ion-row>
+    <ion-col>
+      <span [hidden]="listing.status===1" class="span-inactive">INACTIVE</span>
+    </ion-col>
+  </ion-row>
 
+  <ion-row>
+    <ion-col>
+      <img  class="image-col" [src]="imageUrl"  />
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col class="details-col">
+      <ion-item>
+        Description:
+      </ion-item>
+    </ion-col>
+    <ion-col class="details-col">
+      <ion-item>
+        {{ listing.description }}
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col class="details-col">
+      <ion-item>
+        Genre:
+      </ion-item>
+    </ion-col>
+    <ion-col class="details-col">
+      <ion-item>
+        {{ genre }}
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <button [hidden]="listing.userId === currentUserId" ion-button type="button" (click)="chat()">Contact</button>
+  <ion-fab [hidden]="isEditHidden || listing.status === 0" class="edit-listing-fab" right bottom>
+    <button ion-fab (click)="editListing()">edit</button>
+  </ion-fab>
 </ion-content>

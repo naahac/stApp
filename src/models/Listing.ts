@@ -9,8 +9,10 @@ export class Listing {
   status : boolean;
   personId : number;
   bookId : number;
+  latitude : number;
+  longitude : number;
 
-  constructor(listingId : number, title : string, description : string, dateadded : string, status: boolean, userId : number, bookId : number) {
+  constructor(listingId : number, title : string, description : string, dateadded : string, status: boolean, userId : number, bookId : number, latitude? : number, longitude? : number) {
     this.listingId = listingId;
     this.title = title;
     this.description = description;
@@ -18,5 +20,7 @@ export class Listing {
     this.status = status;
     this.personId = userId;
     this.bookId = bookId;
+    this.latitude = latitude;
+    this.longitude = longitude;
   }
 }
