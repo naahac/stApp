@@ -23,7 +23,7 @@
 <ion-content padding>
   <ion-list>
     <button ion-item *ngFor="let obj of chatrooms" (click)="openChat(obj)">
-      <h2>{{obj.userName2}}</h2>
+      <h2>{{ownerId === obj.user1 ? obj.userName2 : obj.userName1}}</h2>
       <!--<p text-capitalize>{{ obj.user1 }}</p>-->
     </button>
   </ion-list>

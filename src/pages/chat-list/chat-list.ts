@@ -19,9 +19,13 @@ import {StorageProvider} from "../../providers/storage/storage";
 export class ChatListPage {
 
   chatrooms : Chat[];
+  ownerId : number;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private app : App,private storage : StorageProvider,private service : ServiceProvider) {
     this.getChats();
+    this.storage.getUserId().then((userId) => {
+      this.ownerId = userId;
+    })
   }
 
   ionViewDidLoad() {

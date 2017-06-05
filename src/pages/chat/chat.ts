@@ -38,12 +38,22 @@ export class ChatPage {
   message : string;
   messages : Message[];
   chat : Chat;
+  ownerId : number;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private service : ServiceProvider, private storage : StorageProvider) {
     this.messages = [];
     this.receiverUserId = navParams.get("userId");
     this.chat = navParams.get("chat");
-    this.receiverUserId = this.receiverUserId === undefined ? this.chat.user1 : this.receiverUserId;
+    if(this.receiverUserId === undefined){
+      storage.getUserId().then(ownerId => {
+        this.ownerId = ownerId;
+        if(ownerId === this.chat.user1){
+          this.receiverUserId = this.chat.user2;
+        }else{
+          this.receiverUserId = this.chat.user1
+        }
+      });
+    }
     this.socket = io.connect(this.service.getBaseUrl());
     this.socket.on("messageToClient", (message, chatId) =>{
       if(chatId === this.chatId){
@@ -55,6 +65,7 @@ export class ChatPage {
     });
     this.connectToChat();
     this.storage.getToken().then((token) =>{
+      console.log("chat userId: " + this.receiverUserId);
       this.service.createChatroom(token, this.receiverUserId).subscribe((response) =>{
         this.chatId = response.data;
         this.service.getChatById(token, this.chatId).subscribe((response) => {
@@ -88,7 +99,7 @@ export class ChatPage {
     this.socket.emit("messageToServer", this.chatId, this.senderUserId, this.receiverUserId, this.message, function(respMsg, username){
       console.log("message resp");
     });
-    this.messages.push(new Message(this.message, this.receiverUserId));
+    this.messages.push(new Message(this.message, this.ownerId));
     this.message = "";
   }
 }
